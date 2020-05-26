@@ -50,7 +50,7 @@ public class ExampleServerDstu3IT {
 
 	@Test
 	public void testCreateAndRead() {
-		ourLog.info("Base URL is: " +  HapiProperties.getServerAddress());
+		ourLog.info("Base URL is: " + HapiProperties.getServerAddress());
 		String methodName = "testCreateResourceConditional";
 
 		Patient pt = new Patient();
@@ -80,14 +80,19 @@ public class ExampleServerDstu3IT {
 		IIdType mySubscriptionId = methodOutcome.getId();
 
 		// Wait for the subscription to be activated
-		waitForSize(1, () -> ourClient.search().forResource(Subscription.class).where(Subscription.STATUS.exactly().code("active")).cacheControl(new CacheControlDirective().setNoCache(true)).returnBundle(Bundle.class).execute().getEntry().size());
+		waitForSize(1,
+				() -> ourClient.search().forResource(Subscription.class)
+						.where(Subscription.STATUS.exactly().code("active"))
+						.cacheControl(new CacheControlDirective().setNoCache(true)).returnBundle(Bundle.class).execute()
+						.getEntry().size());
 
 		/*
 		 * Attach websocket
 		 */
 
 		WebSocketClient myWebSocketClient = new WebSocketClient();
-		SocketImplementation mySocketImplementation = new SocketImplementation(mySubscriptionId.getIdPart(), EncodingEnum.JSON);
+		SocketImplementation mySocketImplementation = new SocketImplementation(mySubscriptionId.getIdPart(),
+				EncodingEnum.JSON);
 
 		myWebSocketClient.start();
 		URI echoUri = new URI("ws://localhost:" + ourPort + "/hapi-fhir-jpaserver/websocket");
@@ -151,7 +156,7 @@ public class ExampleServerDstu3IT {
 	}
 
 	public static void main(String[] theArgs) throws Exception {
-		ourPort = 8080;
+		ourPort = 8181;
 		beforeClass();
 	}
 }

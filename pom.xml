@@ -8,6 +8,7 @@
     contents below may be removed
     if you are using this file as a basis for your own project.
     -->
+	
     <parent>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir</artifactId>
@@ -254,7 +255,7 @@
 
     <packaging>war</packaging>
 
-    <name>HAPI FHIR JPA Server - Starter Project</name>
+    <name>HAPI FHIR JPA Server - DEV</name>
 
     <repositories>
         <repository>

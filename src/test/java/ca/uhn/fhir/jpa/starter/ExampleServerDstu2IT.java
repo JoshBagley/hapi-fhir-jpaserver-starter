@@ -77,7 +77,7 @@ public class ExampleServerDstu2IT {
 	}
 
 	public static void main(String[] theArgs) throws Exception {
-		ourPort = 8080;
+		ourPort = 8181;
 		beforeClass();
 	}
 }

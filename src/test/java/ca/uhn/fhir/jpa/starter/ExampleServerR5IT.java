@@ -74,8 +74,7 @@ public class ExampleServerR5IT {
         subscription.setStatus(Subscription.SubscriptionStatus.REQUESTED);
 
         Subscription.SubscriptionChannelComponent channel = new Subscription.SubscriptionChannelComponent();
-        channel.getType().addCoding()
-                .setSystem("http://terminology.hl7.org/CodeSystem/subscription-channel-type")
+        channel.getType().addCoding().setSystem("http://terminology.hl7.org/CodeSystem/subscription-channel-type")
                 .setCode("websocket");
         channel.getPayload().setContentType("application/json");
         subscription.setChannel(channel);
@@ -84,14 +83,19 @@ public class ExampleServerR5IT {
         IIdType mySubscriptionId = methodOutcome.getId();
 
         // Wait for the subscription to be activated
-        waitForSize(1, () -> ourClient.search().forResource(Subscription.class).where(Subscription.STATUS.exactly().code("active")).cacheControl(new CacheControlDirective().setNoCache(true)).returnBundle(Bundle.class).execute().getEntry().size());
+        waitForSize(1,
+                () -> ourClient.search().forResource(Subscription.class)
+                        .where(Subscription.STATUS.exactly().code("active"))
+                        .cacheControl(new CacheControlDirective().setNoCache(true)).returnBundle(Bundle.class).execute()
+                        .getEntry().size());
 
         /*
          * Attach websocket
          */
 
         WebSocketClient myWebSocketClient = new WebSocketClient();
-        SocketImplementation mySocketImplementation = new SocketImplementation(mySubscriptionId.getIdPart(), EncodingEnum.JSON);
+        SocketImplementation mySocketImplementation = new SocketImplementation(mySubscriptionId.getIdPart(),
+                EncodingEnum.JSON);
 
         myWebSocketClient.start();
         URI echoUri = new URI("ws://localhost:" + ourPort + "/hapi-fhir-jpaserver/websocket");
@@ -157,7 +161,7 @@ public class ExampleServerR5IT {
     }
 
     public static void main(String[] theArgs) throws Exception {
-        ourPort = 8080;
+        ourPort = 8181;
         beforeClass();
     }
 }
